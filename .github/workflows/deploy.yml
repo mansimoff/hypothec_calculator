@@ -1,0 +1,37 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # возможность запустить вручную из вкладки Actions
+
+# Права, необходимые actions/deploy-pages для публикации
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Один деплой за раз: новый запуск отменяет незавершённый предыдущий
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: publish src/ to Pages
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      # Публикуем содержимое src/ — это корень сайта (index.html лежит там)
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: src
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
