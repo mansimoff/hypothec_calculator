@@ -1,9 +1,12 @@
 name: Deploy to GitHub Pages
 
+# Срабатывает после завершения CI в ветке main.
+# Деплой выполняется ТОЛЬКО если CI завершился успешно — сломанная версия не уедет.
 on:
-  push:
+  workflow_run:
+    workflows: [CI] # точное значение поля name в ci.yml
+    types: [completed]
     branches: [main]
-  workflow_dispatch: # возможность запустить вручную из вкладки Actions
 
 # Права, необходимые actions/deploy-pages для публикации
 permissions:
@@ -19,12 +22,16 @@ concurrency:
 jobs:
   deploy:
     name: publish src/ to Pages
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Деплоим ровно тот коммит, который проверил CI
+          ref: ${{ github.event.workflow_run.head_sha }}
 
       - uses: actions/configure-pages@v5
 
