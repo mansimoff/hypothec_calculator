@@ -1,0 +1,309 @@
+{
+ "schedules": [
+  {
+   "loan": 480000000,
+   "rate": "12",
+   "n": 240,
+   "type": "annuity",
+   "firstPayment": 5285213,
+   "lastPayment": 5285637,
+   "totalInterest": 788451544,
+   "payments": [
+    5285213,
+    5285213,
+    5285637
+   ],
+   "balances": [
+    479514787,
+    366780844,
+    0
+   ]
+  },
+  {
+   "loan": 480000000,
+   "rate": "12",
+   "n": 240,
+   "type": "differentiated",
+   "firstPayment": 6800000,
+   "lastPayment": 2020000,
+   "totalInterest": 578400000,
+   "payments": [
+    6800000,
+    4400000,
+    2020000
+   ],
+   "balances": [
+    478000000,
+    238000000,
+    0
+   ]
+  },
+  {
+   "loan": 300000000,
+   "rate": "10",
+   "n": 180,
+   "type": "annuity",
+   "firstPayment": 3223815,
+   "lastPayment": 3223973,
+   "totalInterest": 280286858,
+   "payments": [
+    3223815,
+    3223815,
+    3223973
+   ],
+   "balances": [
+    299276185,
+    202022838,
+    0
+   ]
+  },
+  {
+   "loan": 250000000,
+   "rate": "5.99",
+   "n": 360,
+   "type": "annuity",
+   "firstPayment": 1497269,
+   "lastPayment": 1497673,
+   "totalInterest": 289017244,
+   "payments": [
+    1497269,
+    1497269,
+    1497673
+   ],
+   "balances": [
+    249750648,
+    176934429,
+    0
+   ]
+  },
+  {
+   "loan": 250000000,
+   "rate": "5.99",
+   "n": 360,
+   "type": "differentiated",
+   "firstPayment": 1942361,
+   "lastPayment": 697911,
+   "totalInterest": 225248959,
+   "payments": [
+    1942361,
+    1318402,
+    697911
+   ],
+   "balances": [
+    249305556,
+    124305556,
+    0
+   ]
+  },
+  {
+   "loan": 123456789,
+   "rate": "7.35",
+   "n": 97,
+   "type": "annuity",
+   "firstPayment": 1691838,
+   "lastPayment": 1691898,
+   "totalInterest": 40651557,
+   "payments": [
+    1691838,
+    1691838,
+    1691898
+   ],
+   "balances": [
+    122521124,
+    70174698,
+    0
+   ]
+  },
+  {
+   "loan": 123456789,
+   "rate": "7.35",
+   "n": 97,
+   "type": "differentiated",
+   "firstPayment": 2028923,
+   "lastPayment": 1280547,
+   "totalInterest": 37052470,
+   "payments": [
+    2028923,
+    1654734,
+    1280547
+   ],
+   "balances": [
+    122184039,
+    61092020,
+    0
+   ]
+  },
+  {
+   "loan": 100000000,
+   "rate": "0",
+   "n": 120,
+   "type": "annuity",
+   "firstPayment": 833333,
+   "lastPayment": 833373,
+   "totalInterest": 0,
+   "payments": [
+    833333,
+    833333,
+    833373
+   ],
+   "balances": [
+    99166667,
+    49166687,
+    0
+   ]
+  },
+  {
+   "loan": 100000001,
+   "rate": "0",
+   "n": 120,
+   "type": "differentiated",
+   "firstPayment": 833333,
+   "lastPayment": 833334,
+   "totalInterest": 0,
+   "payments": [
+    833333,
+    833333,
+    833334
+   ],
+   "balances": [
+    99166668,
+    49166668,
+    0
+   ]
+  },
+  {
+   "loan": 9999999999,
+   "rate": "18.5",
+   "n": 600,
+   "type": "annuity",
+   "firstPayment": 154182569,
+   "lastPayment": 154187306,
+   "totalInterest": 82509546138,
+   "payments": [
+    154182569,
+    154182569,
+    154187306
+   ],
+   "balances": [
+    9999984097,
+    9897897319,
+    0
+   ]
+  },
+  {
+   "loan": 500000,
+   "rate": "100",
+   "n": 12,
+   "type": "annuity",
+   "firstPayment": 67498,
+   "lastPayment": 67497,
+   "totalInterest": 309975,
+   "payments": [
+    67498,
+    67498,
+    67497
+   ],
+   "balances": [
+    474169,
+    267148,
+    0
+   ]
+  },
+  {
+   "loan": 100,
+   "rate": "9.9",
+   "n": 1,
+   "type": "annuity",
+   "firstPayment": 101,
+   "lastPayment": 101,
+   "totalInterest": 1,
+   "payments": [
+    101,
+    101,
+    101
+   ],
+   "balances": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "loan": 77777777,
+   "rate": "0.01",
+   "n": 360,
+   "type": "annuity",
+   "firstPayment": 216375,
+   "lastPayment": 216203,
+   "totalInterest": 117051,
+   "payments": [
+    216375,
+    216375,
+    216203
+   ],
+   "balances": [
+    77562050,
+    38701920,
+    0
+   ]
+  }
+ ],
+ "maxLoan": [
+  {
+   "target": 5285358,
+   "rate": "12",
+   "n": 240,
+   "type": "annuity",
+   "loan": 480013174
+  },
+  {
+   "target": 8000000,
+   "rate": "12",
+   "n": 240,
+   "type": "annuity",
+   "loan": 726555376
+  },
+  {
+   "target": 8000000,
+   "rate": "12",
+   "n": 240,
+   "type": "differentiated",
+   "loan": 564705949
+  },
+  {
+   "target": 1234567,
+   "rate": "6.5",
+   "n": 120,
+   "type": "annuity",
+   "loan": 108726507
+  },
+  {
+   "target": 1234567,
+   "rate": "6.5",
+   "n": 120,
+   "type": "differentiated",
+   "loan": 89786759
+  },
+  {
+   "target": 999900,
+   "rate": "0",
+   "n": 60,
+   "type": "annuity",
+   "loan": 59994029
+  },
+  {
+   "target": 999900,
+   "rate": "0",
+   "n": 60,
+   "type": "differentiated",
+   "loan": 59994059
+  },
+  {
+   "target": 5000000,
+   "rate": "21.9",
+   "n": 600,
+   "type": "annuity",
+   "loan": 273967320
+  }
+ ]
+}

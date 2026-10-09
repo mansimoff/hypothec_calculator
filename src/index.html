@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Ипотечный калькулятор — по стоимости и по платежу</title>
+  <meta name="description" content="Расчёт ипотеки по стоимости недвижимости и по посильному платежу: аннуитет и дифференцированные платежи, график, переплата, экспорт в PDF и Excel.">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <header class="top">
+    <div class="top__inner">
+      <h1 class="top__title">Ипотечный калькулятор</h1>
+      <div class="tabs" role="tablist" aria-label="Разделы калькулятора">
+        <button class="tabs__tab" role="tab" id="tab-mortgage" aria-selected="true" aria-controls="panel-mortgage" type="button">Ипотека</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="panel-mortgage" role="tabpanel" aria-labelledby="tab-mortgage" class="page">
+    <div class="layout">
+
+      <form id="calc-form" class="card form" novalidate autocomplete="off">
+        <div class="seg" role="radiogroup" aria-label="Режим расчёта">
+          <label class="seg__item">
+            <input type="radio" name="mode" value="cost" checked>
+            <span>По стоимости</span>
+          </label>
+          <label class="seg__item">
+            <input type="radio" name="mode" value="payment">
+            <span>По платежу</span>
+          </label>
+        </div>
+        <p class="form__lead" id="mode-lead">Известна цена квартиры — считаем платёж и переплату.</p>
+
+        <div class="field" data-field="price" id="field-price">
+          <label class="field__label" for="price">Стоимость недвижимости</label>
+          <div class="input-wrap">
+            <input class="input" id="price" name="price" type="text" inputmode="decimal" value="8 000 000" aria-describedby="err-price">
+            <span class="input-wrap__unit" aria-hidden="true">₽</span>
+          </div>
+          <p class="field__error" id="err-price" role="alert"></p>
+        </div>
+
+        <div class="field" data-field="payment" id="field-payment" hidden>
+          <label class="field__label" for="payment">Ежемесячный платёж</label>
+          <div class="input-wrap">
+            <input class="input" id="payment" name="payment" type="text" inputmode="decimal" value="80 000" aria-describedby="err-payment hint-payment">
+            <span class="input-wrap__unit" aria-hidden="true">₽</span>
+          </div>
+          <p class="field__hint" id="hint-payment">Для дифференцированного графика — первый (самый большой) платёж.</p>
+          <p class="field__error" id="err-payment" role="alert"></p>
+        </div>
+
+        <div class="field" data-field="downPayment">
+          <div class="field__row">
+            <label class="field__label" for="downPayment">Первоначальный взнос</label>
+            <div class="seg seg--small" role="radiogroup" aria-label="Единица взноса">
+              <label class="seg__item"><input type="radio" name="downMode" value="pct" checked><span>%</span></label>
+              <label class="seg__item"><input type="radio" name="downMode" value="rub"><span>₽</span></label>
+            </div>
+          </div>
+          <div class="input-wrap">
+            <input class="input" id="downPayment" name="downPayment" type="text" inputmode="decimal" value="20" aria-describedby="err-downPayment hint-downPayment">
+            <span class="input-wrap__unit" id="down-unit" aria-hidden="true">%</span>
+          </div>
+          <p class="field__hint" id="hint-downPayment"></p>
+          <p class="field__error" id="err-downPayment" role="alert"></p>
+        </div>
+
+        <div class="field-grid">
+          <div class="field" data-field="rate">
+            <label class="field__label" for="rate">Ставка, % годовых</label>
+            <div class="input-wrap">
+              <input class="input" id="rate" name="rate" type="text" inputmode="decimal" value="12" aria-describedby="err-rate">
+              <span class="input-wrap__unit" aria-hidden="true">%</span>
+            </div>
+            <p class="field__error" id="err-rate" role="alert"></p>
+          </div>
+
+          <div class="field" data-field="term">
+            <label class="field__label" for="termValue">Срок кредита</label>
+            <div class="input-wrap input-wrap--select">
+              <input class="input" id="termValue" name="termValue" type="text" inputmode="numeric" value="20" aria-describedby="err-term">
+              <select class="select" id="termUnit" name="termUnit" aria-label="Единица срока">
+                <option value="years" selected>лет</option>
+                <option value="months">мес.</option>
+              </select>
+            </div>
+            <p class="field__error" id="err-term" role="alert"></p>
+          </div>
+        </div>
+
+        <fieldset class="field field--type">
+          <legend class="field__label">Тип платежей</legend>
+          <label class="radio"><input type="radio" name="type" value="annuity" checked><span>Аннуитетные</span></label>
+          <label class="radio"><input type="radio" name="type" value="differentiated"><span>Дифференцированные</span></label>
+        </fieldset>
+
+        <div class="field" data-field="startDate">
+          <label class="field__label" for="startDate">Дата первого платежа</label>
+          <input class="input input--date" id="startDate" name="startDate" type="date" aria-describedby="err-startDate">
+          <p class="field__error" id="err-startDate" role="alert"></p>
+        </div>
+      </form>
+
+      <section class="card results" id="results" aria-labelledby="results-title">
+        <h2 class="visually-hidden" id="results-title">Результаты расчёта</h2>
+        <div id="results-empty" class="results__empty" hidden>
+          <p>Исправьте поля, подсвеченные в форме, — результаты появятся сразу.</p>
+        </div>
+        <div id="results-body">
+          <p class="hero__label" id="hero-label">Ежемесячный платёж</p>
+          <p class="hero__value" id="hero-value" aria-live="polite">—</p>
+          <p class="hero__sub" id="hero-sub"></p>
+
+          <div class="compose" aria-hidden="true">
+            <div class="compose__bar">
+              <span class="compose__seg compose__seg--down" id="seg-down"></span>
+              <span class="compose__seg compose__seg--principal" id="seg-principal"></span>
+              <span class="compose__seg compose__seg--interest" id="seg-interest"></span>
+            </div>
+          </div>
+          <ul class="legend" aria-label="Структура общих расходов">
+            <li><i class="dot dot--down"></i>Взнос <b id="share-down"></b></li>
+            <li><i class="dot dot--principal"></i>Кредит <b id="share-principal"></b></li>
+            <li><i class="dot dot--interest"></i>Проценты <b id="share-interest"></b></li>
+          </ul>
+
+          <dl class="facts" id="facts"></dl>
+
+          <div class="actions">
+            <button class="btn" id="btn-pdf" type="button">Скачать PDF</button>
+            <button class="btn btn--ghost" id="btn-xlsx" type="button">Скачать Excel</button>
+          </div>
+          <p class="actions__error" id="export-error" role="alert"></p>
+        </div>
+      </section>
+    </div>
+
+    <section class="charts" aria-label="Графики">
+      <figure class="card chart chart--wide">
+        <figcaption>Остаток долга и выплаченные проценты</figcaption>
+        <div class="chart__box"><canvas id="chart-balance" role="img" aria-label="График остатка долга и накопленных процентов по месяцам"></canvas></div>
+      </figure>
+      <figure class="card chart">
+        <figcaption>Платежи по годам: долг и проценты</figcaption>
+        <div class="chart__box"><canvas id="chart-years" role="img" aria-label="Столбчатая диаграмма платежей по годам"></canvas></div>
+      </figure>
+      <figure class="card chart">
+        <figcaption>Из чего состоят расходы</figcaption>
+        <div class="chart__box chart__box--square"><canvas id="chart-share" role="img" aria-label="Доли первоначального взноса, основного долга и процентов"></canvas></div>
+      </figure>
+    </section>
+
+    <section class="card schedule" aria-labelledby="schedule-title">
+      <div class="schedule__head">
+        <h2 id="schedule-title">График платежей</h2>
+        <div class="seg seg--small" role="radiogroup" aria-label="Детализация графика">
+          <label class="seg__item"><input type="radio" name="scheduleView" value="year" checked><span>По годам</span></label>
+          <label class="seg__item"><input type="radio" name="scheduleView" value="month"><span>По месяцам</span></label>
+        </div>
+      </div>
+      <div class="schedule__scroll" tabindex="0" role="region" aria-label="Таблица графика платежей">
+        <table class="table" id="schedule-table">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>Расчёт модельный: проценты начисляются по ставке/12 на остаток долга, без страховок, комиссий и досрочных погашений. Фактический график банка может отличаться на десятки рублей из-за количества дней в месяце. Не является офертой или финансовой рекомендацией.</p>
+  </footer>
+
+  <script src="vendor/chart.umd.js"></script>
+  <script src="vendor/jspdf.umd.min.js"></script>
+  <script src="vendor/xlsx.full.min.js"></script>
+  <script src="js/calculations/decimal.js"></script>
+  <script src="js/calculations/money.js"></script>
+  <script src="js/calculations/mortgageMath.js"></script>
+  <script src="js/calculations/validate.js"></script>
+  <script src="js/calculations/mortgage.js"></script>
+  <script src="js/charts/mortgageCharts.js"></script>
+  <script src="js/exports/fonts/plex-vfs.js"></script>
+  <script src="js/exports/pdfExport.js"></script>
+  <script src="js/exports/excelExport.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

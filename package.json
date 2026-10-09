@@ -1,0 +1,24 @@
+{
+  "name": "web-mortgage-calculator",
+  "version": "1.0.0",
+  "description": "Ипотечный калькулятор (тонкий клиент): расчёт по стоимости и по платежу, графики, экспорт в PDF/Excel",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "serve": "python3 -m http.server 8080 --directory src",
+    "lint": "eslint .",
+    "test": "node --test \"tests/**/*.test.js\"",
+    "check": "npm run lint && npm test",
+    "build:fonts": "python3 scripts/build-fonts.py",
+    "golden": "python3 scripts/gen_golden.py"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.0",
+    "eslint": "^10.0.0",
+    "globals": "^16.0.0",
+    "jsdom": "^26.1.0"
+  }
+}
